@@ -1,10 +1,12 @@
 FROM python:3.11.2-alpine
 
-RUN apk --no-cache add gcc musl-dev git
+RUN apk --no-cache add gcc musl-dev linux-headers git
 
-# Install psutil from source
-RUN pip install cython  # Required for compiling psutil
-RUN pip install git+https://github.com/giampaolo/psutil.git
+# Install psutil from Alpine package
+RUN apk --no-cache add --virtual .build-deps build-base && \
+    apk --no-cache add libffi-dev && \
+    pip install psutil && \
+    apk del .build-deps
 
 # Install solara and other dependencies
 RUN pip install solara --no-cache-dir
