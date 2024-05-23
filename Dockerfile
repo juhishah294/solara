@@ -1,6 +1,6 @@
 FROM python:3.11.2-alpine
 
-RUN apk --no-cache add gcc musl-dev
+RUN apk --no-cache add gcc musl-dev git
 
 # Install psutil from source
 RUN pip install cython  # Required for compiling psutil
