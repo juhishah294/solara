@@ -1,21 +1,13 @@
-FROM python:3.11.2-alpine
+FROM python:3.11-slim-bookworm
 
-RUN apk --no-cache add gcc musl-dev linux-headers git
-
-# Install psutil from Alpine package
-RUN apk --no-cache add --virtual .build-deps build-base && \
-    apk --no-cache add libffi-dev && \
-    pip install psutil && \
-    apk del .build-deps
-
-# Install solara and other dependencies
 RUN pip install solara --no-cache-dir
 
 WORKDIR /srv
-
+# Caching Introduced here
 COPY requirements.txt /srv/
 RUN pip install -r requirements.txt --no-cache-dir
 
+
 COPY . /srv
 
-CMD ["solara", "run", "app.py", "--port=80", "--host=0.0.0.0", "--production"]
+CMD ["solara", "run", "app.py", "--port=80", "--host=0.0.0.0", "--production" ]
