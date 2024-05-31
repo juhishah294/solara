@@ -26,4 +26,4 @@ RUN pip install -r requirements.txt --no-cache-dir
 COPY . /srv
 
 # Set the command to run the application
-CMD ["solara", "run", "app.py", "--port=80", "--host=0.0.0.0", "--production"]
+CMD ["solara", "run", "app.py", "--port=8765", "--host=0.0.0.0", "--production"]
