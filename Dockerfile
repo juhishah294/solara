@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y \
 RUN pip install --upgrade pip
 
 # Install solara and its dependencies
-RUN pip install solara
+RUN pip install solara --no-cache-dir
 
 # Set the working directory
 WORKDIR /srv
@@ -26,4 +26,4 @@ RUN pip install -r requirements.txt --no-cache-dir
 COPY . /srv
 
 # Set the command to run the application
-CMD ["python", "app.py"]
+CMD ["solara", "run", "app.py", "--port=80", "--host=0.0.0.0", "--production"]
